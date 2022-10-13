@@ -1,3 +1,77 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-primary.heart {
+  float: right;
+  background-color: white;
+  color: rgb(204, 204, 18);
+  border-color: rgb(204, 204, 18);
+}
+.btn-primary.heart:hover {
+    float: right;
+    background-color: rgb(204, 204, 18);
+    color: black
+  }
+  .btn-primary.heart:active {
+    float: right;
+    background-color: rgb(204, 204, 18);
+    color: black
+  }
+
+.btn-primary {
+  background-color: white;
+  color: #0d6efd;
+}
+
+.dropdown-toggle {
+  margin-left: 280%;
+}
+
+div.charctersRow {
+  display: flex;
+  width: auto;
+  overflow-x: scroll;
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+div.planetsRow {
+  display: flex;
+  width: auto;
+  overflow-x: scroll;
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+div.vehiclesRow {
+  display: flex;
+  width: auto;
+  overflow-x: scroll;
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.card {
+  padding: 0.75rem;
+  margin: 2rem;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+h1{
+    color: red;
+}
+
+.StarWarsLogo{
+    
+}

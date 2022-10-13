@@ -18,6 +18,9 @@ export const Demo = () => {
 							<Link to={"/single/" + index}>
 								<span>Link to: {item.title}</span>
 							</Link>
+							<Link to={"/planets/"}>
+							<span>Link to: plants</span>
+							</Link>
 							{// Conditional render example
 							// Check to see if the background is orange, if so, display the message
 							item.background === "orange" ? (
@@ -26,7 +29,7 @@ export const Demo = () => {
 								</p>
 							) : null}
 							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
+								X
 							</button>
 						</li>
 					);

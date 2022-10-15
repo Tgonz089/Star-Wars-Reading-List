@@ -4,6 +4,7 @@ import { Cards } from "../component/card.js";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 export const Home = (props) => {
   const { store, actions } = useContext(Context);
@@ -19,7 +20,9 @@ export const Home = (props) => {
                 <Card.Text>Gender: {person.gender}</Card.Text>
                 <Card.Text>Eye Color: {person.eye_color}</Card.Text>
                 <Card.Text>Hair Color: {person.hair_color}</Card.Text>
-                <Button variant="primary">Learn More!</Button>
+                <Link to={"/people" + (index + 1)} className="link">
+                  <Button className="btnLearnMore">Learn more!</Button>
+                </Link>{" "}
                 <Button variant="primary heart">
                   <span>
                     <svg

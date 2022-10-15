@@ -6,13 +6,22 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
+export const People = (props) => {
+  const { store, actions } = useContext(Context);
 
-export const People = () => {
-	//const { store, actions } = useContext(Context);
-
-	return (
-		<div className="text-center mt-5">
-			<h1>People</h1>
-		</div>
-	);
+  return (
+    <>
+	            {store.people.map((person, index) => {
+            return (
+              <Cards key={index+1}>
+                <Card.Title>{person.name}</Card.Title>
+                <Card.Text>Gender: {person.gender}</Card.Text>
+                <Card.Text>Eye Color: {person.eye_color}</Card.Text>
+                <Card.Text>Hair Color: {person.hair_color}</Card.Text>
+              </Cards>
+            );
+          })}
+          ;
+    </>
+  );
 };

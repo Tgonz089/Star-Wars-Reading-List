@@ -14,15 +14,15 @@
   border-color: rgb(204, 204, 18);
 }
 .btn-primary.heart:hover {
-    float: right;
-    background-color: rgb(204, 204, 18);
-    color: black
-  }
-  .btn-primary.heart:active {
-    float: right;
-    background-color: rgb(204, 204, 18);
-    color: black
-  }
+  float: right;
+  background-color: rgb(204, 204, 18);
+  color: black;
+}
+.btn-primary.heart:active {
+  float: right;
+  background-color: rgb(204, 204, 18);
+  color: black;
+}
 
 .btn-primary {
   background-color: white;
@@ -68,10 +68,30 @@ div.vehiclesRow {
   flex-shrink: 0;
 }
 
-h1{
-    color: red;
+h1 {
+  color: red;
 }
 
-.StarWarsLogo{
-    
+.StarWarsLogo {
+}
+
+.trash {
+  background: none;
+  border-color: none;
+  border: none;
+}
+.trash:active {
+  background: none;
+  border-color: none;
+  border: none;
+}
+
+.trash:hover {
+  background: none;
+  border-color: none;
+  border: none;
+}
+
+.bi.bi-trash {
+  color: black;
 }

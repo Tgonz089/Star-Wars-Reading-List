@@ -4,10 +4,9 @@ import { Cards } from "../component/card.js";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import ReactDOM from "react-dom";
 import { HeartButton } from "../component/heartButton.js";
 
-export const Home = (props) => {
+export const Home = () => {
   const { store, actions } = useContext(Context);
   return (
     <>
@@ -21,7 +20,7 @@ export const Home = (props) => {
                 <Card.Text>Gender: {person.gender}</Card.Text>
                 <Card.Text>Eye Color: {person.eye_color}</Card.Text>
                 <Card.Text>Hair Color: {person.hair_color}</Card.Text>
-                <Link to={"/people/" + (index + 1)} className="link">
+                <Link to={"/people/" + index} className="link">
                   <Button className="btnLearnMore">Learn more!</Button>
                 </Link>{" "}
                 <HeartButton name={person.name} />
@@ -40,7 +39,7 @@ export const Home = (props) => {
                   <Card.Title>{planet.name}</Card.Title>
                   <Card.Text>Population: {planet.population}</Card.Text>
                   <Card.Text>Terrain: {planet.terrain}</Card.Text>
-                  <Link to={"/planet/" + (index + 1)} className="link">
+                  <Link to={"/planets/" + index} className="link">
                     <Button className="btnLearnMore">Learn more!</Button>
                   </Link>{" "}
                   <HeartButton name={planet.name} />
@@ -60,7 +59,7 @@ export const Home = (props) => {
                   <Card.Title>{vehicle.name}</Card.Title>
                   <Card.Text>Model: {vehicle.model}</Card.Text>
                   <Card.Text>Crew: {vehicle.crew}</Card.Text>
-                  <Link to={"/vehicle/" + (index + 1)} className="link">
+                  <Link to={"/vehicles/" + index} className="link">
                     <Button className="btnLearnMore">Learn more!</Button>
                   </Link>{" "}
                   <HeartButton name={vehicle.name} />

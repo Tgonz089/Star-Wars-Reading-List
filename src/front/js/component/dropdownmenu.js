@@ -2,19 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Context } from "../store/appContext";
 import Button from "react-bootstrap/Button";
-import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
 
 export const DropDownMenu = () => {
   const { store, actions } = useContext(Context);
   const [favorite, setFavorite] = useState({});
   const [selectedFavorites, setselectedFavorites] = useState({ favorites: {} });
+
   const allFavorites = store.favorites.map((item, index) => {
     return (
       <Dropdown.Item key={index} value={index}>
         {item}
         <Button
-          onClick={() => actions.deleteFavorites(favorite)}
+          onClick={() => actions.deleteFavorites(item)}
           className="delete"
         >
           <svg

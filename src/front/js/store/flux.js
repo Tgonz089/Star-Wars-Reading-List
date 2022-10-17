@@ -92,8 +92,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       deleteFavorites: (favorite) => {
         const store = getStore();
-        store.favorites.delete(favorite);
-        setStore({ favorites: [...store.favorites, favorite] });
+        const del = store.favorites.filter(item=>item != favorite);
+        setStore({ favorites: del });
       },
     },
   };

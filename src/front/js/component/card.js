@@ -18,8 +18,3 @@ export const Cards = (props) => {
     </>
   );
 };
-
-Cards.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.string,
-};

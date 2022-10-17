@@ -7,19 +7,15 @@
   flex-direction: column;
 }
 
-.btn-primary.heart {
+.Heart {
   float: right;
-  background-color: white;
-  color: rgb(204, 204, 18);
+  background-color: none;
+  color: black;
   border-color: rgb(204, 204, 18);
 }
-.btn-primary.heart:hover {
+.Heart:hover {
   float: right;
-  background-color: rgb(204, 204, 18);
-  color: black;
-}
-.btn-primary.heart:active {
-  float: right;
+  border-color: rgb(204, 204, 18);
   background-color: rgb(204, 204, 18);
   color: black;
 }
@@ -75,18 +71,18 @@ h1 {
 .StarWarsLogo {
 }
 
-.trash {
+.delete {
   background: none;
   border-color: none;
   border: none;
 }
-.trash:active {
+.delete:active {
   background: none;
   border-color: none;
   border: none;
 }
 
-.trash:hover {
+.delete:hover {
   background: none;
   border-color: none;
   border: none;
@@ -94,4 +90,13 @@ h1 {
 
 .bi.bi-trash {
   color: black;
+}
+
+hr {
+  color: red;
+}
+
+.image {
+  float: left;
+  padding: 25px;
 }

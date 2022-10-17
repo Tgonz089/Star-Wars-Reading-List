@@ -86,6 +86,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) => setStore({ vehicles: data.results }))
           .catch((err) => err);
       },
+      setFavorites: (favorite) => {
+        const store = getStore();
+        setStore({ favorites: [...store.favorites, favorite] });
+      },
+      deleteFavorites: (favorite) => {
+        const store = getStore();
+        store.favorites.delete(favorite);
+        setStore({ favorites: [...store.favorites, favorite] });
+      },
     },
   };
 };

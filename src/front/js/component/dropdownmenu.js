@@ -8,7 +8,7 @@ export const DropDownMenu = () => {
   const [favorite, setFavorite] = useState({});
   const [selectedFavorites, setselectedFavorites] = useState({ favorites: {} });
 
-  const allFavorites = store.favorites.map((item, index) => {
+  const deleteAFavorite = store.favorites.map((item, index) => {
     return (
       <Dropdown.Item key={index} value={index}>
         {item}
@@ -57,7 +57,7 @@ export const DropDownMenu = () => {
             });
           }}
         >
-          {allFavorites}
+          {deleteAFavorite}
         </Dropdown.Menu>
       </Dropdown>
     </>

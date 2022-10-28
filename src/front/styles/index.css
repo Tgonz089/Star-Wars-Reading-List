@@ -8,16 +8,29 @@
 }
 
 .Heart {
+  color: black;
+}
+
+.ButtonFav {
   float: right;
   background-color: none;
   color: black;
   border-color: rgb(204, 204, 18);
 }
-.Heart:hover {
+.ButtonFav:hover {
   float: right;
   border-color: rgb(204, 204, 18);
   background-color: rgb(204, 204, 18);
   color: black;
+}
+
+.ButtonFav:focus {
+  float: right;
+  border-color: rgb(204, 204, 18);
+  background-color: rgb(204, 204, 18);
+  color: black;
+  box-shadow:none !important;
+  outline:0px !important;
 }
 
 .btn-primary {
@@ -66,9 +79,6 @@ div.vehiclesRow {
 
 h1 {
   color: red;
-}
-
-.StarWarsLogo {
 }
 
 .delete {

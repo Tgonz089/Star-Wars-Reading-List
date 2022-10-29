@@ -11,12 +11,6 @@ class User(db.Model):
     email = db.Column(db.String(256), unique=True, nullable=False)
     name = db.Column(db.String(256))
     password = db.Column(db.String(256), nullable=False)
-    Planet_To_Favorites_id = db.Column(
-        db.Integer, db.ForeignKey("Planet_To_Favorites.id"))
-    Person_To_Favorites_id = db.Column(
-        db.Integer, db.ForeignKey("Person_To_Favorites.id"))
-    Vehicle_To_Favorites_id = db.Column(
-        db.Integer, db.ForeignKey("Vehicle_To_Favorites.id"))
 
     def serialize(self):
         return {

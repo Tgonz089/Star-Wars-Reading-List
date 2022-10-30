@@ -7,6 +7,21 @@ from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
 
+@api.route('/user', methods=['GET'])
+def user_all():
+    users = User.query.all()
+
+    return jsonify(all_users=[i.serialize() for i in users]), 200
+
+
+@api.route('/user/<int:user_id>', methods=['GET'])
+def single_user(user_id):
+
+    user = User.query.filter_by(id=user_id).all()
+    return jsonify(
+        all_users=[i.serialize() for i in user]
+    )
+
 
 @api.route('/person', methods=['GET'])
 def get_person_all():
@@ -17,21 +32,12 @@ def get_person_all():
 
 
 @api.route('/person/<int:person_id>', methods=['GET'])
-def get_single_person():
+def get_single_person(person_id):
 
-    response_body = {
-        "message": "Hello! This will choose a single person"
-    }
-
-    return jsonify(response_body), 200
-
-
-@api.route('/planet/<int:planet_id>', methods=['GET'])
-def single_planet():
-
-    response_body = {
-        "message": "Hello! This will grab a single planet"
-    }
+    single_person = Person.query.filter_by(id=person_id).all()
+    return jsonify(
+        characters=[i.serialize() for i in single_person]
+    ), 200
 
     return jsonify(response_body), 200
 
@@ -39,48 +45,16 @@ def single_planet():
 @api.route('/planet', methods=['GET'])
 def planet_all():
 
-    response_body = {
-        "message": "Hello! This will grab all the planets"
-    }
+    planets = Planet.query.all()
 
-    return jsonify(response_body), 200
+    return jsonify(all_planets=[i.serialize() for i in planets]), 200
 
 
-@api.route('/user/<int:user_id>', methods=['GET'])
-def single_user():
+@api.route('/planet/<int:planet_id>', methods=['GET'])
+def single_planet():
 
-    response_body = {
-        "message": "Hello! This will grab a single user"
-    }
+    single_planet = User.query.filter_by(id=planet_id).all()
 
-    return jsonify(response_body), 200
-
-
-@api.route('/user', methods=['GET'])
-def user_all():
-
-    response_body = {
-        "message": "Hello! This will grab all the users"
-    }
-
-    return jsonify(response_body), 200
-
-
-@api.route('/vehicle/<int:vehicle_id>', methods=['GET'])
-def single_vehicle():
-
-    response_body = {
-        "message": "Hello! This will grab a single vehicle"
-    }
-
-    return jsonify(response_body), 200
-
-
-@api.route('/vehicle', methods=['GET'])
-def vehicle_all():
-
-    response_body = {
-        "message": "Hello! This will grab all the users"
-    }
-
-    return jsonify(response_body), 200
+    return jsonify(
+        all_planets=[i.serialize() for i in single_planet]
+    )

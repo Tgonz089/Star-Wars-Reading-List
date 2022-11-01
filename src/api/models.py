@@ -3,6 +3,28 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
+user_to_planet = db.Table(
+    "user_to_planet",
+    db.metadata,
+    db.Column("user_id", db.Integer, db.ForeignKey("User.id")),
+    db.Column("planet_id", db.Integer, db.ForeignKey("Planet.id"))
+)
+
+user_to_person = db.Table(
+
+    "user_to_person",
+    db.metadata,
+    db.Column("user_id", db.Integer, db.ForeignKey("User.id")),
+    db.Column("person_id", db.Integer, db.ForeignKey("Person.id"))
+)
+
+user_to_vehicle = db.Table(
+    "user_to_vehicle",
+    db.metadata,
+    db.Column("user_id", db.Integer, db.ForeignKey("User.id")),
+    db.Column("vehicle_id", db.Integer, db.ForeignKey("Vehicle.id"))
+)
+
 class User(db.Model):
     __tablename__ = 'User'
     # Here we define columns for the table address.
@@ -11,12 +33,25 @@ class User(db.Model):
     email = db.Column(db.String(256), unique=True, nullable=False)
     name = db.Column(db.String(256))
     password = db.Column(db.String(256), nullable=False)
+    favorite_planet = db.relationship("Planet",
+                                 secondary=user_to_planet,
+                                 backref=db.backref("users_planet", uselist=True))
+    favorite_person = db.relationship("Person",
+                                 secondary=user_to_person,
+                                 backref=db.backref("users_people", uselist=True))
+    favorite_vehicle = db.relationship("Vehicle",
+                                 secondary=user_to_vehicle,
+                                 backref=db.backref("users_vehicle", uselist=True))
+
 
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
             "name": self.name,
+            "favorite_planet": [planet.serialize() for planet in self.favorite_planet],
+            "favorite_person": [person.serialize() for person in self.favorite_person],
+            "favorite_vehicle": [vehicle.serialize() for vehicle in self.favorite_vehicle]
             # do not serialize the password, its a security breach
         }
 
@@ -29,7 +64,6 @@ class Person(db.Model):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = db.Column(db.Integer, primary_key=True)
-    person_fav_id = db.Column(db.Integer)
     name = db.Column(db.String(256))
     eye_color = db.Column(db.String(25))
     hair_color = db.Column(db.String(25))
@@ -37,13 +71,11 @@ class Person(db.Model):
     height = db.Column(db.Float)
     mass = db.Column(db.Float)
     Planet_id = db.Column(db.Integer, db.ForeignKey("Planet.id"))
-    person = db.relationship("Person_To_Favorites")
 
     def serialize(self):
         return {
 
             "id": self.id,
-            "person_fav_id": self.person_fav_id,
             "name": self.name,
             "eye_color": self.eye_color,
             "hair_color": self.hair_color,
@@ -62,19 +94,16 @@ class Planet(db.Model):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = db.Column(db.Integer, primary_key=True)
-    planet_fav_id = db.Column(db.Integer)
     planet_name = db.Column(db.String(256))
     population = db.Column(db.String(256))
     terrain = db.Column(db.String(25))
     gravity = db.Column(db.Integer)
     orbital_period = db.Column(db.Integer)
-    planet = db.relationship("Planet_To_Favorites")
 
     def serialize(self):
         return {
 
             "id": self.id,
-            "planet_fav_id": self.planet_fav_id,
             "planet_name": self.planet_name,
             "population": self.population,
             "terrain": self.terrain,
@@ -101,7 +130,6 @@ class Vehicle(db.Model):
     length = db.Column(db.Float)
     manufacturer = db.Column(db.String(256))
     max_atmosphering_speed = db.Column(db.Integer)
-    vehicle = db.relationship("Vehicle_To_Favorites")
 
     def serialize(self):
         return {
@@ -121,24 +149,3 @@ class Vehicle(db.Model):
 
     def deserialize(data={}):
         return Vehicle(**data)
-
-
-class Person_To_Favorites(db.Model):
-    __tablename__ = 'Person_To_Favorites'
-    person_id = db.Column(db.Integer, db.ForeignKey(
-        "Person.id"), primary_key=True)
-user_id = db.Column(db.Integer, db.ForeignKey("User.id"), primary_key=True)
-
-
-class Planet_To_Favorites(db.Model):
-    __tablename__ = 'Planet_To_Favorites'
-    planet_id = db.Column(db.Integer, db.ForeignKey(
-        "Planet.id"), primary_key=True)
-user_id = db.Column(db.Integer, db.ForeignKey("User.id"), primary_key=True)
-
-
-class Vehicle_To_Favorites(db.Model):
-    __tablename__ = 'Vehicle_To_Favorites'
-    vehicle_id = db.Column(db.Integer, db.ForeignKey(
-        "Vehicle.id"), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("User.id"), primary_key=True)

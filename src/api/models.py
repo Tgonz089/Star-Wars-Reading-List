@@ -42,7 +42,7 @@ class User(db.Model):
     favorite_vehicle = db.relationship("Vehicle",
                                  secondary=user_to_vehicle,
                                  backref=db.backref("users_vehicle", uselist=True))
-
+    
 
     def serialize(self):
         return {

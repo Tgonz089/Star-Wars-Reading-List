@@ -67,7 +67,7 @@ def vehicle_all():
     return jsonify(all_vehicles=[i.serialize() for i in vehicles]), 200
 
 
-@api.route('/planet/<int:vehicle_id>', methods=['GET'])
+@api.route('/vehicle/<int:vehicle_id>', methods=['GET'])
 def single_vehicle(vehicle_id):
 
     single_vehicle = Vehicle.query.filter_by(id=vehicle_id).all()
@@ -76,21 +76,60 @@ def single_vehicle(vehicle_id):
         all_vehicles=[i.serialize() for i in single_vehicle]
     )
 
-@api.route('/user/<int:user_id>', methods=['DELETE'])
-def delete_vehicle(user_id):
-    deleted_vehicle = User.query.get(id=favorite_vehicle)
-    if deleted_vehicle == None:
+@api.route('/users/favorites', methods= ['GET'])
+def get_fav_planet():
+    users = User.query.all()
+    for user in users:
+        for planet in user.favorite_planet:
+            result = planet.planet_name
+        for person in user.favorite_person:
+            per_result = person.name
+        for vehicle in user.favorite_vehicle:
+            veh_result = vehicle.vehicle_name
+    return jsonify(result,per_result, veh_result)
+
+@api.route("/favorite/planet/<int:planet_id>", methods = ["POST"])
+def add_planet(planet_id):
+    new = request.get_json()
+    new_planet = Planet(id=planet_id, planet_name=new["planet_name"])
+    db.session.add(new_planet)
+    db.session.commit()
+
+    return jsonify("Planet added to favorites"),200
+
+@api.route("/favorite/person/<int:person_id>", methods = ["POST"])
+def add_person(person_id):
+    new = request.get_json()
+    new_person = Person(id=person_id, name=new["name"])
+    db.session.add(new_person)
+    db.session.commit()
+
+    return jsonify("Person added to favorites"),200
+
+@api.route("/favorite/vehicle/<int:vehicle_id>", methods = ["POST"])
+def add_vehicle(vehicle_id):
+    new = request.get_json()
+    new_vehicle = Vehicle(id=vehicle_id, vehicle_name=new["vehicle_name"])
+    db.session.add(new_vehicle)
+    db.session.commit()
+
+    return jsonify("Vehicle added to favorites"),200
+
+@api.route("/favorite/vehicle/<int:vehicle_id>", methods = ["DELETE"])
+def delete_vehicle(vehicle_id):
+    new = request.get_json()
+    deleted = Vehicle(vehicle_id)
+    db.session.deleted(deleted)
+    db.session.commit()
+
+    return jsonify("Vehicle has been removed from favorites"),200
+
+@api.route('/favorite/planet/<int:planet_id>', methods=['DELETE'])
+def delete_planet(planet_id):
+    deleted_planet = Planet.query.get(id=favorite_planet)
+    if deleted_planet == None:
         return ("this vehicle does not exist"),200
     else:
-        db.session.delete(deleted_vehicle)
+        db.session.delete(deleted_planet)
         db.session.commit()   
-        return jsonify("Vehicle deleted from the User's favorites."),200
-
-#@api.route("/person/<int:person_id>", methods = ["POST"])
-#def add_favorite(person_id):
-#    new = request.get_json()
- #   new_favorite = User(user_id=new["user_id"], person_id=new["person_id"])
- #   db.session.add(new_favorite)
-   # db.session.commit()
-
-    #return jsonify("Person added to favourites"),200
+        return jsonify("Planet deleted from the User's favorites."),200

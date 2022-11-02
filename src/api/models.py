@@ -27,6 +27,7 @@ user_to_vehicle = db.Table(
     db.Column("vehicle_id", db.Integer, db.ForeignKey("Vehicle.id"))
 )
 
+
 class User(db.Model):
     __tablename__ = 'User'
     # Here we define columns for the table address.
@@ -36,15 +37,14 @@ class User(db.Model):
     name = db.Column(db.String(256))
     password = db.Column(db.String(256), nullable=False)
     favorite_planet = db.relationship("Planet",
-                                 secondary=user_to_planet,
-                                 backref=db.backref("users_planet", uselist=True))
+                                      secondary=user_to_planet,
+                                      backref=db.backref("users_planet", uselist=True))
     favorite_person = db.relationship("Person",
-                                 secondary=user_to_person,
-                                 backref=db.backref("users_people", uselist=True))
+                                      secondary=user_to_person,
+                                      backref=db.backref("users_people", uselist=True))
     favorite_vehicle = db.relationship("Vehicle",
-                                 secondary=user_to_vehicle,
-                                 backref=db.backref("users_vehicle", uselist=True))
-    
+                                       secondary=user_to_vehicle,
+                                       backref=db.backref("users_vehicle", uselist=True))
 
     def serialize(self):
         return {
@@ -59,6 +59,17 @@ class User(db.Model):
 
     def deserialize(data={}):
         return User(**data)
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        self._password = generate_password_hash(password)
+
+    def check_password_hash(self, password):
+        return check_password_hash(self.password, password)
 
 
 class Person(db.Model):

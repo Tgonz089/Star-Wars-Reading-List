@@ -21,12 +21,12 @@ def setup_admin(app):
     # admin.add_view(ModelView(YourModelName, db.session))
 
 
-class UserView(ModelView):
-    column_list = ['email', 'is_active']
-    column_editable_list = ['is_active', ]
-    column_exclude_list = ['_password', ]
-    create_modal = True
-    edit_modal = True
-    form_extra_fields = {
-        'password': PasswordField('password')
-    }
+#class UserView(ModelView):
+    #column_list = ['email', 'is_active']
+    #column_editable_list = ['is_active', ]
+    #column_exclude_list = ['_password', ]
+   # create_modal = True
+    #edit_modal = True
+    #form_extra_fields = {
+        #'password': PasswordField('password')
+    #}

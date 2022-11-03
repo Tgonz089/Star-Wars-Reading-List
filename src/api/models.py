@@ -60,16 +60,16 @@ class User(db.Model):
     def deserialize(data={}):
         return User(**data)
 
-    @hybrid_property
-    def password(self):
-        return self._password
+    #@hybrid_property
+    #def password(self):
+        #return self._password
 
-    @password.setter
-    def password(self, password):
-        self._password = generate_password_hash(password)
+    #@password.setter
+    #def password(self, password):
+        #self._password = generate_password_hash(password)
 
-    def check_password_hash(self, password):
-        return check_password_hash(self.password, password)
+    #def check_password_hash(self, password):
+        #return check_password_hash(self.password, password)
 
 
 class Person(db.Model):

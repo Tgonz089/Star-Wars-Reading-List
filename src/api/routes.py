@@ -98,20 +98,27 @@ def single_vehicle(vehicle_id):
 @api.route('/user/favorites', methods=['GET'])
 def get_favorite():
     users = User.query.all()
+    print(users)
+    fav = []
     for user in users:
+        vehicle_result = []
+        planet_result = []
+        person_result = []
         single_user = user.name
         for planet in user.favorite_planet:
-            planet_result = planet.planet_name
+            planet_result.append(planet.planet_name)
         for person in user.favorite_person:
-            person_result = person.name
+            person_result.append(person.name)
         for vehicle in user.favorite_vehicle:
-            vehicle_result = vehicle.vehicle_name
-
-    return jsonify(single_user,
-                   "Favorite planet is " + planet_result,
-                   "Favorite character is " + person_result,
-                   "Favorite vehicle is the " + vehicle_result,
-                   )
+            vehicle_result.append(vehicle.vehicle_name)
+        all = {
+            "list of favorite vehicles": vehicle_result,
+            "list of favorite planets": planet_result,
+            "list of favorite characters": person_result,
+            "user": single_user
+        }
+        fav.append(all)
+    return jsonify(fav)
 
 # This will list a specific user's favorite planets, characters, and vehicles.
 
@@ -119,27 +126,26 @@ def get_favorite():
 @api.route('/user/<int:user_id>/favorites', methods=['GET'])
 def get_favorites(user_id):
     users = User.query.filter_by(id=user_id).all()
+    fav = []
     for user in users:
+        vehicle_result = []
+        planet_result = []
+        person_result = []
+        single_user = user.name
         for planet in user.favorite_planet:
-            planet_result = planet.planet_name
+            planet_result.append(planet.planet_name)
         for person in user.favorite_person:
-            person_result = person.name
+            person_result.append(person.name)
         for vehicle in user.favorite_vehicle:
-            vehicle_result = vehicle.vehicle_name
-    return jsonify(user.name,
-                   "Favorite planet is " + planet_result,
-                   "Favorite character is " + person_result,
-                   "Favorite vehicle is the " + vehicle_result)
-
-
-@api.route("/user/<int:user_id>/favorites", methods=["POST"])
-def add_planet_user(user_id):
-    new = request.get_json()
-    new_planet = Planet(id=planet_id, planet_name=new["planet_name"])
-    db.session.add(new_planet)
-    db.session.commit()
-
-    return jsonify("A Planet was added to the user's favorites."), 200
+            vehicle_result.append(vehicle.vehicle_name)
+        all = {
+            "list of favorite vehicles": vehicle_result,
+            "list of favorite planets": planet_result,
+            "list of favorite characters": person_result,
+            "user": single_user
+        }
+        fav.append(all)
+    return jsonify(fav)
 
 # This will add a new planet to Planets.
 
@@ -225,14 +231,23 @@ def delete_fav(user_id):
             planet_result = planet.planet_name
     return jsonify("Deleted Favorite.")
 
+@api.route("/user/<int:user_id>/favorites", methods=["POST"])
+def add_planet_user(user_id):
+    new = request.get_json()
+    new_planet = Planet(id=planet_id, planet_name=new["planet_name"])
+    db.session.add(new_planet)
+    db.session.commit()
 
-#@api.route("/login", methods=["POST"])
-#def login():
+    return jsonify("A Planet was added to the user's favorites."), 200
+
+
+# @api.route("/login", methods=["POST"])
+# def login():
     #email = request.json.get("email", None)
     #password = request.json.get("passord", None)
     #user = User.query.filter_by(email=email).one_or_none()
-    #if user is not None:
-        #if user.check_password_hash(password):
-            #access_token = create_access_token(identity=email)
-            #return jsonify(access_token=access_token)
-    #return jsonify({"msg": "Invalid cedentials."}), 401
+    # if user is not None:
+    # if user.check_password_hash(password):
+    #access_token = create_access_token(identity=email)
+    # return jsonify(access_token=access_token)
+    # return jsonify({"msg": "Invalid cedentials."}), 401

@@ -55,35 +55,35 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getPeople: (data) => {
         const store = getStore();
-        const endpoint = "https://swapi.dev/api/people/";
+        const endpoint = process.env.BACKEND_URL + "/api/person";
         const config = {
           method: "GET",
         };
         fetch(endpoint, config)
           .then((res) => res.json())
-          .then((data) => setStore({ people: data.results }))
+          .then((data) => setStore({ people: data.all_characters }))
           .catch((err) => err);
       },
       getPlanets: (data) => {
         const store = getStore();
-        const endpoint = "https://swapi.dev/api/planets/";
+        const endpoint = process.env.BACKEND_URL + "/api/planet/";
         const config = {
           method: "GET",
         };
         fetch(endpoint, config)
           .then((res) => res.json())
-          .then((data) => setStore({ planets: data.results }))
+          .then((data) => setStore({ planets: data.all_planets }))
           .catch((err) => err);
       },
       getVehicles: (data) => {
         const store = getStore();
-        const endpoint = "https://swapi.dev/api/vehicles/";
+        const endpoint = process.env.BACKEND_URL + "/api/vehicle/";
         const config = {
           method: "GET",
         };
         fetch(endpoint, config)
           .then((res) => res.json())
-          .then((data) => setStore({ vehicles: data.results }))
+          .then((data) => setStore({ vehicles: data.all_vehicles }))
           .catch((err) => err);
       },
       setFavorites: (favorite) => {
@@ -92,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       deleteFavorites: (favorite) => {
         const store = getStore();
-        const del = store.favorites.filter(item=>item != favorite);
+        const del = store.favorites.filter((item) => item != favorite);
         setStore({ favorites: del });
       },
     },

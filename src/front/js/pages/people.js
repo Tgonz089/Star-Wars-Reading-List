@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import ReactDOM from "react-dom";
 
 export const People = (props) => {
-  const { store, actions } = useContext(Context);
+const { store, actions } = useContext(Context);
 const params = useParams();
 
 const data = store.people[params.id]
@@ -31,6 +31,8 @@ console.log(data);
           <p>Gender: {data.gender}</p>
           <p>Eye Color: {data.eye_color}</p>
           <p>Hair color: {data.hair_color}</p>
+          <p>Height: {data.height}</p>
+          <p>Mass: {data.mass}</p>
         </div>
       </div>
     </>

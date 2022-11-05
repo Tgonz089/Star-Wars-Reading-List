@@ -27,7 +27,6 @@ export const Home = () => {
               </Cards>
             );
           })}
-          ;
         </div>
         &nbsp;
         <div className="planets">
@@ -36,9 +35,10 @@ export const Home = () => {
             {store.planets.map((planet, index) => {
               return (
                 <Cards key={index}>
-                  <Card.Title>{planet.name}</Card.Title>
+                  <Card.Title>{planet.planet_name}</Card.Title>
                   <Card.Text>Population: {planet.population}</Card.Text>
                   <Card.Text>Terrain: {planet.terrain}</Card.Text>
+                  <Card.Text>Gravity: {planet.gravity}</Card.Text>
                   <Link to={"/planets/" + index} className="link">
                     <Button className="btnLearnMore">Learn more!</Button>
                   </Link>{" "}
@@ -46,7 +46,6 @@ export const Home = () => {
                 </Cards>
               );
             })}
-            ;
           </div>
         </div>
         &nbsp;
@@ -56,9 +55,12 @@ export const Home = () => {
             {store.vehicles.map((vehicle, index) => {
               return (
                 <Cards key={index}>
-                  <Card.Title>{vehicle.name}</Card.Title>
+                  <Card.Title>{vehicle.vehicle_name}</Card.Title>
                   <Card.Text>Model: {vehicle.model}</Card.Text>
                   <Card.Text>Crew: {vehicle.crew}</Card.Text>
+                  <Card.Text>
+                    Cost in credits: {vehicle.cost_in_credits}
+                  </Card.Text>
                   <Link to={"/vehicles/" + index} className="link">
                     <Button className="btnLearnMore">Learn more!</Button>
                   </Link>{" "}
@@ -66,7 +68,6 @@ export const Home = () => {
                 </Cards>
               );
             })}
-            ;
           </div>
         </div>
       </div>

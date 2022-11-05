@@ -95,7 +95,7 @@ def single_vehicle(vehicle_id):
 # This will list all the user's favorite, planets, characters, and vehicles.
 
 
-@api.route('/user/favorites', methods=['GET'])
+@api.route('/favorites/user', methods=['GET'])
 def get_favorite():
     users = User.query.all()
     print(users)
@@ -123,7 +123,7 @@ def get_favorite():
 # This will list a specific user's favorite planets, characters, and vehicles.
 
 
-@api.route('/user/<int:user_id>/favorites', methods=['GET'])
+@api.route('/favorites/user/<int:user_id>', methods=['GET'])
 def get_favorites(user_id):
     users = User.query.filter_by(id=user_id).all()
     fav = []
@@ -222,32 +222,13 @@ def delete_planet(planet_id):
         db.session.commit()
         return jsonify("Planet was deleted."), 200
 
-
-@api.route('/user/<int:user_id>/favorites', methods=['DELETE'])
-def delete_fav(user_id):
-    users = User.query.filter_by(id=user_id).all()
-    for user in users:
-        for planet in user.favorite_planet:
-            planet_result = planet.planet_name
-    return jsonify("Deleted Favorite.")
-
-@api.route("/user/<int:user_id>/favorites", methods=["POST"])
-def add_planet_user(user_id):
-    new = request.get_json()
-    new_planet = Planet(id=planet_id, planet_name=new["planet_name"])
-    db.session.add(new_planet)
-    db.session.commit()
-
-    return jsonify("A Planet was added to the user's favorites."), 200
-
-
 # @api.route("/login", methods=["POST"])
 # def login():
-    #email = request.json.get("email", None)
-    #password = request.json.get("passord", None)
-    #user = User.query.filter_by(email=email).one_or_none()
-    # if user is not None:
-    # if user.check_password_hash(password):
-    #access_token = create_access_token(identity=email)
-    # return jsonify(access_token=access_token)
-    # return jsonify({"msg": "Invalid cedentials."}), 401
+#     email = request.json.get("email", None)
+#     password = request.json.get("passord", None)
+#     user = User.query.filter_by(email=email).one_or_none()
+#     if user is not None:
+#         if user.check_password_hash(password):
+#             access_token = create_access_token(identity=email)
+#     return jsonify(access_token=access_token)
+#     return jsonify({"msg": "Invalid cedentials."}), 401

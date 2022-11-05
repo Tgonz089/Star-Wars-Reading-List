@@ -55,35 +55,35 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getPeople: (data) => {
         const store = getStore();
-        const endpoint = process.env.BACKEND_URL + "/api/person";
+        const endpoint = "https://swapi.dev/api/people/";
         const config = {
           method: "GET",
         };
         fetch(endpoint, config)
           .then((res) => res.json())
-          .then((data) => setStore({ people: data.all_characters }))
+          .then((data) => setStore({ people: data.results  }))
           .catch((err) => err);
       },
       getPlanets: (data) => {
         const store = getStore();
-        const endpoint = process.env.BACKEND_URL + "/api/planet/";
+        const endpoint = "https://swapi.dev/api/planets/";
         const config = {
           method: "GET",
         };
         fetch(endpoint, config)
           .then((res) => res.json())
-          .then((data) => setStore({ planets: data.all_planets }))
+          .then((data) => setStore({ planets: data.results  }))
           .catch((err) => err);
       },
       getVehicles: (data) => {
         const store = getStore();
-        const endpoint = process.env.BACKEND_URL + "/api/vehicle/";
+        const endpoint = "https://swapi.dev/api/vehicles/";
         const config = {
           method: "GET",
         };
         fetch(endpoint, config)
           .then((res) => res.json())
-          .then((data) => setStore({ vehicles: data.all_vehicles }))
+          .then((data) => setStore({ vehicles: data.results  }))
           .catch((err) => err);
       },
       setFavorites: (favorite) => {
